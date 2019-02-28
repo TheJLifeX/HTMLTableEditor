@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Table Editor</title>
+    <!-- datatables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- datatables JS -->
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="main.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1 style="text-align: center">Table Editor</h1>
+        </div>
+
+        <div class="jumbotron create-column">
+            <h3>Create column</h3>
+            <form>
+                <div class="form-row">
+                    <div class="col-md-2 mb-3">
+                        <label>Name</label>
+                        <input type="text" class="form-control create-column-input01" placeholder="" required>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label>Type</label>
+                        <select name="" id="" class="form-control create-column-input02">
+                            <option value="drop-down">drop-down</option>
+                            <option value="text">text</option>
+                            <option value="date">date</option>
+                            <option value="number">number</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="add-column">add column</button>
+            </form>
+        </div>
+
+        <div class="jumbotron create-row">
+            <h3>Create row</h3>
+            <form>
+                <div class="form-row">
+                    <div class="col-md-2 mb-3">
+                        <label>Entry 1</label>
+                        <input type="number" class="form-control input01" placeholder="" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label>Entry 2</label>
+                        <input type="text" class="form-control input02" placeholder="" required>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label>Entry 3</label>
+                        <input type="date" class="form-control input03" required>Entry 4
+                        <input type="date" class="form-control input04" required>
+
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label>Entry 5</label>
+                        <input type="text" class="form-control input05" placeholder="" required>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label>Entry 6</label>
+                        <select class="form-control input06">
+                            <option value="aktiv" selected>option 1</option>
+                            <option value="inaktiv">option 2</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="add-row">add row</button>
+                <span><i class="fas fa-check text-success"></i></span>
+            </form>
+        </div>
+        <div class="container">
+            <table class="table table-striped table-bordered" id="table_id" class="display">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Entry 1</th>
+                        <th scope="col">Entry 2</th>
+                        <th scope="col">Entry 3</th>
+                        <th scope="col">Entry 4</th>
+                        <th scope="col">Entry 5</th>
+                        <th scope="col">Entry 6</th>
+                        <th scope="col">#</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+    <!-- edit row modal -->
+    <div class="modal fade edit-row-modal" tabindex="-1" role="dialog" aria-labelledby="editRowModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content jumbotron">
+                <h3>Edit row</h3>
+                <form>
+                    <div class="form-row">
+                        <div class="col-md-2 mb-3">
+                            <label>Entry 1</label>
+                            <input type="number" class="form-control input01" placeholder="" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label>Entry 2</label>
+                            <input type="text" class="form-control input02" placeholder="" required>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label>Entry 3</label>
+                            <input type="date" class="form-control input03" required>Entry 4
+                            <input type="date" class="form-control input04" required>
+
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label>Entry 5</label>
+                            <input type="text" class="form-control input05" placeholder="" required>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label>Entry 6</label>
+                            <select class="form-control input06">
+                                <option value="aktiv" selected>option 1</option>
+                                <option value="inaktiv">option 2</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="edit-row-confirm">Confirm</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- popper js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <!-- bootstrap js-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

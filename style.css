@@ -1,0 +1,29 @@
+.removeIcon:hover, .editIcon:hover{
+    cursor: pointer;
+}
+.removeIcon:hover {
+    color: #ff3547;
+}
+
+.editIcon:hover {
+    color: #007bff;
+}
+
+.container, .page-header {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+.jumbotron {
+    padding: 2rem 1rem 2rem 1rem;
+}
+
+.modal-footer { 
+    justify-content: flex-start;
+}
+
+.fas.fa-check {
+    margin-left: 1rem;
+    visibility: hidden;
+}
