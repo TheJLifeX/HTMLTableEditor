@@ -1,4 +1,4 @@
-.removeIcon:hover, .editIcon:hover{
+i:hover{
     cursor: pointer;
 }
 .removeIcon:hover {
@@ -26,4 +26,35 @@
 .fas.fa-check {
     margin-left: 1rem;
     visibility: hidden;
+}
+
+input:invalid {
+    border-color: red;
+}
+
+/* design for remove and add column */
+th {
+    text-align: center;
+}
+
+.float{
+    position: fixed;
+    position: absolute;
+    border-radius: 5px;
+    padding: 2px;
+    background-color : rgba(255, 255, 255);
+    padding: 5;
+    display: inline;
+    top : 0 ;
+    left : 0;
+    z-index: 3;
+    transition: font-size 1s ;
+}
+
+#icon-add-column {
+    padding: 1px;
+}
+
+#icon-remove-column {
+    padding: 1px;
 }
