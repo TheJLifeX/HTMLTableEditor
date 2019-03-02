@@ -3,9 +3,6 @@ let currentEditRow;
 const icons = '<i class="fas fa-trash removeIcon" onclick="removeRow(this)"></i> <i class="fas fa-edit editIcon" onclick="showEditRowModal(this)"></i>';
 let inputsMetaData = [];
 let currentColumnIndex;
-Array.prototype.insert = function (index, item) {
-    this.splice(index, 0, item);
-};
 
 window.onload = function () {
     if (window.jQuery) {
