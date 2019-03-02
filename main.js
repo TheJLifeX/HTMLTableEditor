@@ -64,11 +64,11 @@ window.onload = function () {
             toggleColumnActionsIcons();
 
             $('#column-actions').on('mouseenter', function () {
-                $('#column-actions').stop().fadeTo(500, 1);
+                $('#column-actions').stop().fadeTo(300, 1);
             });
 
             $('#column-actions').on('mouseleave', function () {
-                $('#column-actions').stop().fadeTo(500, 0);
+                $('#column-actions').stop().fadeTo(300, 0);
             });
             // end
 
@@ -113,6 +113,23 @@ window.onload = function () {
                 initDataTable();
                 $('.add-column-modal').modal('hide');
             });
+
+            // remove column
+            $('#icon-remove-column').on('click', function () {
+                inputsMetaData.splice(currentColumnIndex, 1);
+                localStorage.setItem('inputs-meta-data', JSON.stringify(inputsMetaData));
+                updateRowEdition();
+                table.destroy();
+                const currentDataSet = table.rows().data().toArray();
+                currentDataSet.forEach(function (array) {
+                    array.pop();
+                    array.splice(currentColumnIndex, 1);
+                });
+                localStorage.setItem("table-data-set", JSON.stringify(currentDataSet));
+                $('#table_id th:nth-child(' + (currentColumnIndex + 1) + ')').remove();
+                $('#table_id tbody').remove();
+                initDataTable();
+            });
         });
     }
 }
@@ -145,10 +162,16 @@ function initDataTable() {
 
     const dataSetString = localStorage.getItem("table-data-set");
     if (dataSetString) {
-        const dataSet = JSON.parse(dataSetString);
-        dataSet.forEach(function (array) {
-            array.push(icons);
-        })
+        let dataSet = JSON.parse(dataSetString);
+        if (dataSet.length > 0) {
+            if (dataSet[0].length === 0) {
+                dataSet = [];
+            } else {
+                dataSet.forEach(function (array) {
+                    array.push(icons);
+                });
+            }
+        }
         table = $('#table_id').DataTable({
             data: dataSet
         });
@@ -235,18 +258,25 @@ function showEditRowModal(rowChild) {
  * @param inputMetaDataObj - the input meta data object
  */
 function updateRowEdition(inputMetaDataObj) {
-    const targetElement = $('.create-row .form-row div:nth-child(' + (currentColumnIndex + 1) + ')');
-    if (targetElement.length > 0) {
-        targetElement.before($(createInput(inputMetaDataObj)));
-    } else {
-        $('.create-row .form-row').append($(createInput(inputMetaDataObj)));
-    }
+    if (inputMetaDataObj) {
+        const targetElement = $('.create-row .form-row div:nth-child(' + (currentColumnIndex + 1) + ')');
+        if (targetElement.length > 0) {
+            targetElement.before($(createInput(inputMetaDataObj)));
+        } else {
+            $('.create-row .form-row').append($(createInput(inputMetaDataObj)));
+        }
 
-    const targetElementModal = $('.edit-row-modal .form-row div:nth-child(' + (currentColumnIndex + 1) + ')');
-    if (targetElementModal.length > 0) {
-        targetElementModal.before($(createInput(inputMetaDataObj)));
+        const targetElementModal = $('.edit-row-modal .form-row div:nth-child(' + (currentColumnIndex + 1) + ')');
+        if (targetElementModal.length > 0) {
+            targetElementModal.before($(createInput(inputMetaDataObj)));
+        } else {
+            $('.edit-row-modal .form-row').append($(createInput(inputMetaDataObj)));
+        }
     } else {
-        $('.edit-row-modal .form-row').append($(createInput(inputMetaDataObj)));
+        const targetElement = $('.create-row .form-row div:nth-child(' + (currentColumnIndex + 1) + ')');
+        targetElement.remove();
+        const targetElementModal = $('.edit-row-modal .form-row div:nth-child(' + (currentColumnIndex + 1) + ')');
+        targetElementModal.remove();
     }
 }
 
@@ -263,7 +293,7 @@ function toggleColumnActionsIcons(selector = '#table_id th') {
         }
         const tableHeadOffest = $(this).offset();
         const columnActions = $('#column-actions');
-        columnActions.stop().fadeTo(500, 1);
+        columnActions.stop().fadeTo(300, 1);
         columnActions.offset({ top: tableHeadOffest.top - columnActions.innerWidth(), left: tableHeadOffest.left });
     });
 
