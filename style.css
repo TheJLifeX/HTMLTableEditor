@@ -28,10 +28,6 @@ i:hover{
     visibility: hidden;
 }
 
-input:invalid {
-    border-color: red;
-}
-
 /* design for remove and add column */
 th {
     text-align: center;
