@@ -41,6 +41,7 @@ window.onload = function () {
                 });
                 const contentFile = JSON.stringify(currentDataSet);
                 saveData(contentFile, "data.json");
+                $('#save-data').tooltip('hide');
             });
 
             // show tipps to create new column
