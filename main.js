@@ -14,6 +14,57 @@ window.onload = function () {
             initDataTable();
             initRowEdition();
 
+            // initialize all tooltips
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+
+            // save all created data as json
+            const saveData = (function () {
+                const a = document.createElement("a");
+                document.body.appendChild(a);
+                a.style = "display: none";
+                return function (data, fileName) {
+                    const blob = new Blob([data], { type: "octet/stream" }),
+                        url = window.URL.createObjectURL(blob);
+                    a.href = url;
+                    a.download = fileName;
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                };
+            }());
+
+            $("#save-data").click(function () {
+                const currentDataSet = JSON.parse(JSON.stringify(table.rows().data().toArray()));
+                currentDataSet.forEach(function (array) {
+                    array.pop();
+                });
+                const contentFile = JSON.stringify(currentDataSet);
+                saveData(contentFile, "data.json");
+            });
+
+            // show tipps to create new column
+            if (localStorage.getItem('tippsAlreadyShowed') !== 'true') {
+                $('#table_id th.default').popover({ html: true, content: 'Please move mouse over me to <strong>create new column!</strong>' });
+                window.setTimeout(function () {
+                    $('#table_id th.default').popover('show');
+                }, 500);
+                window.setTimeout(function () {
+                    $('#table_id th.default').popover('hide');
+                }, 10000);
+                localStorage.setItem('tippsAlreadyShowed', 'true');
+            }
+
+
+
+
+            // Create an observer instance linked to the addRowObserverCallback callback function
+            addRowObserverCallback();
+            const addRowObserver = new MutationObserver(addRowObserverCallback);
+
+            // Start observing the target node for configured mutations
+            addRowObserver.observe(document.querySelector('.create-row .form-row'), { childList: true });
+
             // add row
             $("#add-row").on("click", function (event) {
                 const inputs = document.querySelectorAll('.create-row input');
@@ -54,7 +105,7 @@ window.onload = function () {
                 $('.edit-row-modal').modal('hide');
             });
 
-            // 
+            // manage entry type by add column modal
             $('#create-column-input02').on('change', function () {
                 $('.constrains').css('display', 'none');
                 const selectValue = $(this).val();
@@ -353,4 +404,16 @@ function toggleColumnActionsIcons(selector = '#table_id th') {
     $(selector).on('mouseleave', function () {
         $('#column-actions').stop().fadeTo(1000, 0);
     });
+}
+
+/**
+ * mutation observe create row - callback function
+ * @param {object} mutations 
+ */
+function addRowObserverCallback(mutations = null) {
+    if ($('.create-row .form-row div').length > 0) {
+        $('#add-row').prop('disabled', false);
+    } else {
+        $('#add-row').prop('disabled', true);
+    }
 }
