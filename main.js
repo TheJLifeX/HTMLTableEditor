@@ -45,7 +45,8 @@ window.onload = function () {
             });
 
             // show tipps to create new column
-            if (localStorage.getItem('tippsAlreadyShowed') !== 'true' || localStorage.getItem('inputs-meta-data') === '[]') {
+            if (localStorage.getItem('tippsAlreadyShowed') !== 'true' || localStorage.getItem('inputs-meta-data') === null
+                || localStorage.getItem('inputs-meta-data') === '[]') {
                 $('#table_id th.default').popover({ html: true, content: 'Please move mouse over me to <strong>create new column!</strong>' });
                 window.setTimeout(function () {
                     $('#table_id th.default').popover('show');
