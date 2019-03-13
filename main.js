@@ -140,6 +140,18 @@ window.onload = function () {
                 $('.add-column-modal').modal('show');
             });
 
+            // dynamic default value by drop-down
+            $('.add-column-modal #type01-input01').on('keyup', function () {
+                const optionsArray = $(this).val().split(',');
+                let options = '';
+                optionsArray.forEach(function (value, index) {
+                    options += '<option value="' + value + '"';
+                    index === 0 ? options += 'selected>' : options += '>';
+                    options += value + '</option>';
+                });
+                $('.add-column-modal #type01-input02').html($(options));
+            });
+
             // add column validation of pattern
             // $('#type02-input02, #type03-input02').on('keyup', function () {
             //     $(this)[0].setCustomValidity('');
