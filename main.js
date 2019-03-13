@@ -45,7 +45,7 @@ window.onload = function () {
             });
 
             // show tipps to create new column
-            if (localStorage.getItem('tippsAlreadyShowed') !== 'true') {
+            if (localStorage.getItem('tippsAlreadyShowed') !== 'true' || localStorage.getItem('inputs-meta-data') === '[]') {
                 $('#table_id th.default').popover({ html: true, content: 'Please move mouse over me to <strong>create new column!</strong>' });
                 window.setTimeout(function () {
                     $('#table_id th.default').popover('show');
@@ -141,14 +141,14 @@ window.onload = function () {
             });
 
             // add column validation of pattern
-            $('#type02-input02, #type03-input02').on('keyup', function () {
-                $(this)[0].setCustomValidity('');
-                try {
-                    new RegExp($(this).val());
-                } catch (e) {
-                    $(this)[0].setCustomValidity('Invalid regular expression')
-                }
-            });
+            // $('#type02-input02, #type03-input02').on('keyup', function () {
+            //     $(this)[0].setCustomValidity('');
+            //     try {
+            //         new RegExp($(this).val());
+            //     } catch (e) {
+            //         $(this)[0].setCustomValidity('Invalid regular expression')
+            //     }
+            // });
 
             // add column
             $('#add-column').on('click', function () {
@@ -176,7 +176,9 @@ window.onload = function () {
                         }
                     }
                     inputMetaDataObj.placeholder = $('#type02-input01').val();
-                    inputMetaDataObj.pattern = $('#type02-input02').val();
+                    // inputMetaDataObj.pattern = $('#type02-input02').val();
+                    // default all values
+                    inputMetaDataObj.pattern = '.*';
                     inputMetaDataObj.defaultValue = $('#type02-input03').val();
                 } else if (inputMetaDataObj.type === 'number') {
                     const inputs = document.querySelectorAll('[id*="type03"]');
@@ -186,7 +188,9 @@ window.onload = function () {
                         }
                     }
                     inputMetaDataObj.placeholder = $('#type03-input01').val();
-                    inputMetaDataObj.pattern = $('#type03-input02').val();
+                    // inputMetaDataObj.pattern = $('#type03-input02').val();
+                    // default all values
+                    inputMetaDataObj.pattern = '.*';
                     inputMetaDataObj.minValue = $('#type03-input03').val();
                     inputMetaDataObj.maxValue = $('#type03-input04').val();
                     inputMetaDataObj.defaultValue = $('#type03-input05').val();
@@ -215,8 +219,13 @@ window.onload = function () {
                 $('.add-column-modal').modal('hide');
             });
 
-            // remove column
+            // show remove column modal
             $('#icon-remove-column').on('click', function () {
+                $('#delete-column-modal').modal('show');
+            });
+
+            // delete column confirm
+            $('#delete-column-confirm').on('click', function () {
                 inputsMetaData.splice(currentColumnIndex, 1);
                 localStorage.setItem('inputs-meta-data', JSON.stringify(inputsMetaData));
                 updateRowEdition();
@@ -230,11 +239,8 @@ window.onload = function () {
                 $('#table_id th:nth-child(' + (currentColumnIndex + 1) + ')').remove();
                 $('#table_id tbody').remove();
                 initDataTable();
+                $('#delete-column-modal').modal('hide');
             });
-
-
-            // check inputs validations for add column modal
-            $('#add-column-modal .form-control')
         });
     }
 }

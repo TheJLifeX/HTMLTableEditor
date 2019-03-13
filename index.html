@@ -78,8 +78,8 @@
     </div>
 
     <!-- add column modal -->
-    <div class="modal fade add-column-modal" tabindex="-2" role="dialog" aria-labelledby="addColumnModal"
-        aria-hidden="true">
+    <div style="z-index: 4000;" class="modal fade add-column-modal" tabindex="-2" role="dialog"
+        aria-labelledby="addColumnModal" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content jumbotron">
                 <h3>Add column</h3>
@@ -119,10 +119,10 @@
                             <label>placeholder</label>
                             <input type="text" class="form-control" id="type02-input01" placeholder="Product ...">
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <!-- <div class="col-md-4 mb-3">
                             <label>pattern</label>
                             <input type="text" class="form-control" id="type02-input02" placeholder="^Product">
-                        </div>
+                        </div> -->
                         <div class="col-md-2 mb-3">
                             <label>default value</label>
                             <input type="text" class="form-control" id="type02-input03" required>
@@ -133,11 +133,11 @@
                             <label>placeholder</label>
                             <input type="text" class="form-control" id="type03-input01" placeholder="0.00">
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <!-- <div class="col-md-4 mb-3">
                             <label>pattern</label>
                             <input type="text" class="form-control" id="type03-input02"
                                 placeholder="^([0-9]+)(.)([0-9]{2})$">
-                        </div>
+                        </div> -->
                         <div class="col-md-2 mb-3">
                             <label>min value</label>
                             <input type="number" class="form-control" id="type03-input03">
@@ -172,6 +172,28 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- confirm delete column modal -->
+    <div class="modal fade" id="delete-column-modal" tabindex="-1" role="dialog" aria-labelledby="deleteColumn"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Are you sure?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Do you really want to delete this column? This process cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="delete-column-confirm">Delete</button>
+                </div>
             </div>
         </div>
     </div>
