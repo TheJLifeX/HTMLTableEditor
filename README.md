@@ -7,4 +7,4 @@ html table editable and sortable.
 - Keep all data in page after refresh. 
 - Export all created data.
 
-### [Live demo](https://htmltableeditor.ulrichtiofack.site)
+### [Live demo](https://thejlifex.github.io/HTMLTableEditor)
